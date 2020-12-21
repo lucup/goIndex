@@ -1070,4 +1070,3 @@ $(function () {
 
   render(path);
 });
-//# sourceMappingURL=/sm/6e384b7c2f5d0aa9c6028ac483ff0c0b2e4dc5254b764e5022644e6b83ba4474.map
