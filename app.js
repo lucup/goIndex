@@ -415,7 +415,7 @@ function utc2beijing(utc_datetime) {
   var Z_pos = utc_datetime.indexOf("Z");
   var year_month_day = utc_datetime.substr(0, T_pos);
   var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
-  var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+  var new_datetime = year_month_day + " " + hour_minute_second; // 2018-03-31 08:02
 
   // 处理成为时间戳
   timestamp = new Date(Date.parse(new_datetime));
