@@ -13,7 +13,7 @@ document.write('<script src="//cdn.jsdelivr.net/gh/lucup/goIndex/js/flv.min.js">
 document.write('<script src="//cdn.jsdelivr.net/gh/lucup/goIndex/js/DPlayer.min.js"></script>');
 // markdown支持
 document.write('<script src="//cdn.jsdelivr.net/gh/lucup/goIndex/js/markdown-it.min.js"></script>');
-document.write('<style>.mdui-appbar .mdui-toolbar{height:56px;font-size:1pc}.mdui-toolbar>i{opacity:.5}.mdui-toolbar>i{padding:0}.mdui-toolbar>a:hover,a.active,a.mdui-typo-headline{opacity:1}.mdui-container{max-width:980px}.mdui-list-item{transition:none}.mdui-list>.th{background-color:initial}.mdui-list-item>a{width:100%;line-height:3pc}.mdui-list-item{margin:2px 0;padding:0}.mdui-toolbar>a:last-child{opacity:1}@media screen and (max-width:980px){.mdui-list-item .mdui-text-right{display:none}.mdui-container{width:100%!important;margin:0}.mdui-toolbar>.mdui-typo-headline,.mdui-toolbar>a:last-child,.mdui-toolbar>i:first-child{display:block}}</style>');
+document.write('<style>.mdui-appbar .mdui-toolbar{height:56px;font-size:1pc}.mdui-toolbar>i{opacity:.5}.mdui-toolbar>i{padding:0}.mdui-toolbar>a:hover,a.active,a.mdui-typo-headline{opacity:1}.mdui-container{max-width:980px}.mdui-list-item{transition:none}.mdui-list>.th{background-color:initial}.mdui-list-item>a{width:100%;line-height:3pc}.mdui-list-item{margin:2px 0;padding:0}.mdui-toolbar>a:last-child{opacity:1}@media screen and (max-width:980px){.mdui-list-item .mdui-text-right{display:none}.mdui-container{width:100%!important;margin:0}}</style>');
 // add custome theme and darkmode
 if (UI.dark_mode) {
   document.write(`<style>* {box-sizing: border-box}body{color:rgba(255,255,255,.87);background-color:#333232}.mdui-theme-primary-${UI.main_color} .mdui-color-theme{background-color:#232427!important}</style>`);
@@ -38,8 +38,8 @@ function init() {
 </header>
 <div class="mdui-container">
 	<div class="mdui-container-fluid">
-		<div id="nav" class="mdui-toolbar nexmoe-item "></div> 
-	</div>
+		<div id="nav" class="mdui-toolbar nexmoe-item nav-style"> </div>
+    </div>
 	<div class="mdui-container-fluid">
 		<div id="head_md" class="mdui-typo nexmoe-item" style="display:none;padding: 20px 0;"></div>
 		<div id="content" class="nexmoe-item"></div>
@@ -113,12 +113,14 @@ function title(path) {
     $('title').html(`${document.siteName} - ${drive_name} - ${path}`);
 }
 
-// 渲染导航栏
+// 渲染搜索栏
 function nav(path) {
   var model = window.MODEL;
   var html = "";
   var cur = window.current_drive_order || 0;
+
   // html += `<a href="/${cur}:/" class="mdui-typo-headline folder">${document.siteName}</a>`;
+
   var names = window.drive_names;
   /*html += `<button class="mdui-btn mdui-btn-raised" mdui-menu="{target: '#drive-names'}"><i class="mdui-icon mdui-icon-left material-icons">share</i> ${names[cur]}</button>`;
   html += `<ul class="mdui-menu" id="drive-names" style="transform-origin: 0px 0px; position: fixed;">`;
@@ -134,6 +136,7 @@ function nav(path) {
   });
   html += `</select>`;
 
+  html += `<a href="/${cur}:/" class="mdui-typo-headline folder">${document.siteName}</a>`;
   if (!model.is_search_page) {
     var arr = path.trim('/').split('/');
     var p = '/';
@@ -146,10 +149,11 @@ function nav(path) {
         if (n == '') {
           break;
         }
-        // html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="/${cur}:${p}">${n}</a>`;
+        html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="/${cur}:${p}">${n}</a>`;
       }
     }
   }
+
   var search_text = model.is_search_page ? (model.q || '') : '';
   const isMobile = Os.isMobile;
   var search_bar = `<div class="mdui-toolbar-spacer"></div>
@@ -462,7 +466,7 @@ function render_search_result_list() {
 	<i class="mdui-icon material-icons icon-sort" data-sort="name" data-order="more">expand_more</i>
 	    </div> 
 	    <div class="mdui-col-sm-3 mdui-text-right">
-	     时间
+	     修改时间
 	<i class="mdui-icon material-icons icon-sort" data-sort="date" data-order="downward">expand_more</i>
 	    </div> 
 	    <div class="mdui-col-sm-2 mdui-text-right">
@@ -981,7 +985,7 @@ function utc2beijing(utc_datetime) {
   var Z_pos = utc_datetime.indexOf('Z');
   var year_month_day = utc_datetime.substr(0, T_pos);
   var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
-  var new_datetime = year_month_day + " " + hour_minute_second; // 2018-03-31 08:02
+  var new_datetime = year_month_day + " " + hour_minute_second; // 2018-03-31 08:02:06
 
   // 处理成为时间戳
   timestamp = new Date(Date.parse(new_datetime));
